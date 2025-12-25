@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/messengerDB
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # DB migrations settings
+  liquibase:
+    change-log: db/changelog/changelog.yaml
+    contexts: main, test
+    liquibase-schema: public
+    user: postgres
+    password: postgres
+security:
+  jwt:
+    secret-key: veryLongAndVerySecretKeyNoBodyWillEverGuessItBecauseItIsUnbelievablySecretOhMyLordSomeOneTryToGuessIt
+
+  minio:
+    url: http://188.242.128.241:9000
+    access-key: minioadmin
+    secret-key: minioadmin
+    bucket-name: messenger

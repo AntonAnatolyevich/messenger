@@ -1,0 +1,28 @@
+services:
+  minio:
+    image: minio/minio
+    container_name: messenger_minioDB
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - ./minio_data:/data
+    command: server /data --console-address ":9001"
+
+  postgres-db:
+    image: postgres:16-alpine3.20
+    container_name: messenger_postgresDB
+    restart: unless-stopped
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "messengerDB"
+    ports:
+      - "5432:5432"
+volumes:
+  db_volume:

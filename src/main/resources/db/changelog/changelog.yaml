@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: v-1_schema-generation
+      author: akhramenko
+      context: main
+      changes:
+        - sqlFile:
+            path: /db/sql/0001.tables.sql
