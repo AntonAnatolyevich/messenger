@@ -10,7 +10,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -20,6 +23,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "users")
+// MessengerUserEntity
 public class MessengerUser {
 
     @Id
@@ -43,6 +47,7 @@ public class MessengerUser {
     private String description;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    @CreationTimestamp
+    private OffsetDateTime createdAt;
 
 }

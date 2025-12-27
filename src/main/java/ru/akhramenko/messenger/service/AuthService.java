@@ -30,9 +30,12 @@ public class AuthService {
     private final JwtIssuer jwtIssuer;
 
     public MessengerUserResponse signInMessengerUser(MessengerUserRequest messengerUserRequest) {
+        // создание сущности доллнжо быть в messageUserService, репозиторий сюда тащить не надо
         MessengerUser messengerUser = messengerUserMapper.toEntity(messengerUserRequest);
-        messengerUser.setPassword(bCryptPasswordEncoder.encode(messengerUserRequest.getPassword()));
-        messengerUser.setCreatedAt(new Date());
+        messengerUser.setPassword(bCryptPasswordEncoder.encode(messengerUserRequest.password()));
+        // Date устаревшее апи
+        // ну и это не надо ваще
+//        messengerUser.setCreatedAt(new Date());
         messengerUserRepo.save(messengerUser);
         return messengerUserMapper.toDto(messengerUser);
     }
@@ -40,7 +43,7 @@ public class AuthService {
     /*Следует разделить token и user */
     public AuthResponse signUpMessengerUser(AuthRequest authRequest) {
         Authentication auth = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(authRequest.userName(), authRequest.password())
         );
         SecurityContextHolder.getContext().setAuthentication(auth);
         UserPrincipal principal = (UserPrincipal) auth.getPrincipal();

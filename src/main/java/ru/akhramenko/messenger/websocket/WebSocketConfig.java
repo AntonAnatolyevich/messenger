@@ -16,6 +16,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     private final JwtHandshakeHandler jwtHandshakeHandler;
 
+    // ip в конфиг и отдельный класс WebsocketConfigurationProperties
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws")

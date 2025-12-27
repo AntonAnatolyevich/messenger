@@ -14,6 +14,9 @@ CREATE TABLE message (
     created_at timestamp,
     sender_id uuid,
     recipient_id uuid,
+    -- CASCADE очень плохая практика которая увеличивает связность, и удалять хардом очень плохо
+    -- лучше подумать над флагом мб типо is_deleted
+    -- либо почитай про патерн tombstone - тут это прям круто будет
     CONSTRAINT fk_user_sender FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_user_recipient FOREIGN KEY (recipient_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );

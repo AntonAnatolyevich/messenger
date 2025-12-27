@@ -15,14 +15,26 @@ public interface MessengerUserRepo extends JpaRepository<MessengerUser, UUID> {
 
     Optional<MessengerUser> findByUserName(String userName);
 
-    @Query(value = "SELECT DISTINCT u.* FROM users u " +
-            "JOIN message m ON u.id = m.recipient_id " +
-            "WHERE m.sender_id = :senderId " +
-            "UNION " +
-            "SELECT DISTINCT u.* FROM users u " +
-            "JOIN message m ON u.id = m.sender_id " +
-            "WHERE m.recipient_id = :senderId",
-            nativeQuery = true)
-    List<MessengerUser> findAllRecipientByUserId(@Param("senderId") UUID senderId);
+
+    // вот так нельзя разве?
+    // SELECT DISTINCT u.* FROM users u
+    //    JOIN message m ON (u.id = m.recipient_id OR u.id = m.sender_id)
+    //    WHERE (m.sender_id = :senderId OR m.recipient_id = :senderId)
+    //      AND u.id != :senderId
+
+    // либо через exists, UNION дорогой очень
+
+    @Query(value = """
+        SELECT DISTINCT u.* FROM users u 
+        JOIN message m ON u.id = m.recipient_id 
+        WHERE m.sender_id = :senderId 
+        UNION 
+        SELECT DISTINCT u.* FROM users u 
+        JOIN message m ON u.id = m.sender_id 
+        WHERE m.recipient_id = :senderId
+        """,
+        nativeQuery = true
+    )
+    List<MessengerUser> findAllRecipientByUserId(UUID senderId);
 
 }

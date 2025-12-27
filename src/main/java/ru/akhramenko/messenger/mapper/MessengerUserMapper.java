@@ -15,7 +15,7 @@ public interface MessengerUserMapper {
     @Mapping(target = "description", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "secondName", ignore = true)
-    MessengerUser toEntity (MessengerUserRequest messengerUserRequest);
+    MessengerUser toEntity(MessengerUserRequest messengerUserRequest);
 
-    MessengerUserResponse toDto (MessengerUser messengerUser);
+    MessengerUserResponse toDto(MessengerUser messengerUser);
 }

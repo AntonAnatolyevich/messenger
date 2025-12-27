@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "message")
+// Лучше тут добавить MessageEntity чтобы понятно было, Message много классов может быть
 public class Message {
 
     @Id
@@ -34,13 +36,14 @@ public class Message {
     private String content;
 
     @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id", nullable = true)
+    @JoinColumn(name = "sender_id")
     private MessengerUser messageSender;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipient_id", nullable = true)
+    @JoinColumn(name = "recipient_id")
     private MessengerUser messageRecipient;
 }

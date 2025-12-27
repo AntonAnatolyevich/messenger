@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+
+// это тоже record
 @Getter
 @Setter
 @Builder

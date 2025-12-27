@@ -12,9 +12,11 @@ import java.util.UUID;
 @Repository
 public interface MessageRepo extends JpaRepository<Message, UUID> {
 
+    // не используется
     @Query(value = "SELECT * FROM message WHERE sender_id = :senderId", nativeQuery = true)
     List<Message> findMessagesByUserId(@Param("senderId") UUID senderId);
 
+    // nativeQuery не нужно, тут можно без него, @Param тоже
     @Query(value = "SELECT m.* FROM Message m WHERE (m.sender_id = :user1Id AND m.recipient_id = :user2Id) OR (m.sender_id = :user2Id AND m.recipient_id = :user1Id) ORDER BY m.created_at ASC", nativeQuery = true)
-    List<Message> findDialogHistory(@Param("user1Id") UUID user1Id, @Param("user2Id") UUID user2Id);
+    List<Message> findDialogHistory(UUID user1Id, UUID user2Id);
 }
