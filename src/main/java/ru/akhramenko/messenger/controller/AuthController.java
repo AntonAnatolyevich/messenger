@@ -19,12 +19,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signin")
-    public MessengerUserResponse signin(@RequestBody MessengerUserRequest messengerUserRequest) {
+    public MessengerUserResponse signIn(@RequestBody MessengerUserRequest messengerUserRequest) {
         return authService.signInMessengerUser(messengerUserRequest);
     }
 
     @PostMapping("/signup")
-    public AuthResponse signup(@RequestBody AuthRequest authRequest) {
+    public AuthResponse signUp(@RequestBody AuthRequest authRequest) {
         return authService.signUpMessengerUser(authRequest);
     }
 }

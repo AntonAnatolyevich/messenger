@@ -13,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 @Configuration
 @RequiredArgsConstructor
 public class JwtIssuer {
+
     private final JwtProperties jwtProperties;
 
     public String issue(UserPrincipal userPrincipal) {

@@ -15,6 +15,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
+// почему snakeCase? чем camelCase стандартный не устраивает?
+// тоже record
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MessengerUserResponse {
 

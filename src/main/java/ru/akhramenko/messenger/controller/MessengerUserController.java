@@ -25,7 +25,7 @@ public class MessengerUserController {
     private final MessageService messageService;
 
     @GetMapping("")
-    public List<MessengerUserResponse> getUserById() {
+    public List<MessengerUserResponse> getAllUsers() {
         return messengerUserService.findAll();
     }
 
@@ -34,17 +34,21 @@ public class MessengerUserController {
         return messengerUserService.findEntityById(id);
     }
 
+    // лучше сделать ручку отдельную где поиск через квери параметры осуществляется
+    // сейчас не расширяемо
+    // чото типо /users/search?name=Jeka&age=20&city=Kal
     @GetMapping("/search/{name}")
     public MessengerUser getUserByName(@PathVariable String  name) {
         return messengerUserService.findEntityByUserName(name);
     }
 
-    @GetMapping("/chatlist")
+    @GetMapping("/chats")
     public List<MessengerUserResponse> getChatList(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         return messengerUserService.findAllRecipientByUserId(userPrincipal.getMessengerUser().getId());
     }
-
-    @GetMapping("/chatlist/{id}")
+    // dialog это как будто чото на русский лад
+    // лучше чат просто, ну и не история я бы назвал а getUserChat
+    @GetMapping("/chats/{id}")
     public List<MessageResponse> getDialogHistory(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                                   @PathVariable UUID id) {
         return messageService.findDialogHistory(userPrincipal.getMessengerUser().getId(), id);

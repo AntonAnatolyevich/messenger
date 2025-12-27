@@ -15,7 +15,8 @@ public interface MessageMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "messageSender", ignore = true)
     @Mapping(target = "messageRecipient", ignore = true)
-    Message toEntity (MessageRequest messageRequest);
+    // зачем ты пробел везде ставить перед сигнатурой метода?
+    Message toEntity(MessageRequest messageRequest);
 
-    MessageResponse toDto (Message message);
+    MessageResponse toDto(Message message);
 }

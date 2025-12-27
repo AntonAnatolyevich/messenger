@@ -24,6 +24,8 @@ repositories {
 	mavenCentral()
 }
 
+
+// версии хочется видеть у не спринговых зависимостей, и еще версии по хорошему в переменные выносить
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'

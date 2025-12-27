@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .securityMatcher("/api/v1/**")
                 .authorizeHttpRequests(registry -> registry
+                        // у тебя же не такого пути
                         .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/v1/channels").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/channels/**").authenticated()
@@ -53,6 +54,7 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+        // дохуя портов както, и айпишники лучше вынести списком в config
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5500", "http://188.242.130.159:3000", "http://localhost:8080"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE"));
         configuration.setAllowCredentials(true);

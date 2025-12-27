@@ -27,12 +27,13 @@ public class JwtHandshakeInterceptor implements HandshakeInterceptor {
                     .map(jwtDecoder::decode)
                     .map(jwtToPrincipalConverter::convert)
                     .ifPresent(userDetails -> attributes.put("userDetails", userDetails));
-            String query = request.getURI().getQuery();
+            var query = request.getURI().getQuery();
             if (query != null && query.contains("channelId=")) {
-                String channelId = query.split("channelId=")[1]; // Парсим из URL
+                var channelId = query.split("channelId=")[1]; // Парсим из URL
                 attributes.put("channelId", UUID.fromString(channelId));
             }
             return true;
+            // плохо ловить так, либо конкретные Exception лови либо переписать логику стоит
         } catch (Exception e) {
             return false;
         }

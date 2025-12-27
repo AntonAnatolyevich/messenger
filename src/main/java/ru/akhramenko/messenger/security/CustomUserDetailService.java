@@ -12,7 +12,9 @@ import ru.akhramenko.messenger.repo.MessengerUserRepo;
 @Component
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
+
     private final MessengerUserRepo messengerUserRepo;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         MessengerUser messengerUser = messengerUserRepo.findByUserName(userName).orElseThrow(() -> new UserNotFoundException("User doesn't exist"));
