@@ -4,8 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import ru.akhramenko.messenger.dto.MessageRequest;
 import ru.akhramenko.messenger.dto.MessageResponse;
 import ru.akhramenko.messenger.dto.MessengerUserResponse;
 import ru.akhramenko.messenger.model.MessengerUser;
@@ -48,5 +52,13 @@ public class MessengerUserController {
     public List<MessageResponse> getDialogHistory(@AuthenticationPrincipal UserPrincipal userPrincipal,
                                                   @PathVariable UUID id) {
         return messageService.findDialogHistory(userPrincipal.getMessengerUser().getId(), id);
+    }
+
+    @PostMapping("/test/{id}")
+    public MessageResponse sendMessage(@AuthenticationPrincipal UserPrincipal userPrincipal,
+                               @RequestPart(value = "file", required = false) List<MultipartFile> file,
+                               @RequestPart("message") MessageRequest messageRequest,
+                               @PathVariable UUID id) {
+        return messageService.createWithFile(id, file, messageRequest, userPrincipal);
     }
 }

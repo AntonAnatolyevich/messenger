@@ -6,3 +6,11 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: /db/sql/0001.tables.sql
+
+  - changeSet:
+      id: v-2_add-attachments-table
+      author: akhramenko
+      context: main
+      changes:
+        - sqlFile:
+            path: /db/sql/0002.tables.sql

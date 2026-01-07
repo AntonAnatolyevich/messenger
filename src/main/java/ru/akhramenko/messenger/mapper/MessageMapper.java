@@ -8,14 +8,16 @@ import ru.akhramenko.messenger.dto.MessageResponse;
 import ru.akhramenko.messenger.model.Message;
 
 @Component
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = MessageAttachmentMapper.class)
 public interface MessageMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "messageSender", ignore = true)
     @Mapping(target = "messageRecipient", ignore = true)
+    @Mapping(target = "attachments", ignore = true)
     Message toEntity (MessageRequest messageRequest);
 
+    @Mapping(source = "messageSender.userName", target = "senderName")
     MessageResponse toDto (Message message);
 }

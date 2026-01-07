@@ -14,5 +14,6 @@ import lombok.Setter;
 public class AuthResponse {
 
     private String token;
+
     private MessengerUserResponse user;
 }
